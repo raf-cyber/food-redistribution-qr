@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community Food Network</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        background: #f5f0e8;
+        font-family: "Inter", sans-serif;
+        color: #2c2416;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero {
+        width: 100%;
+        background: #e8dfc8;
+        padding: 4rem 2rem 3rem;
+        text-align: center;
+      }
+
+      .hero-eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #8b6f47;
+        margin-bottom: 1.2rem;
+      }
+
+      .hero h1 {
+        font-family: "Lora", Georgia, serif;
+        font-size: 2.6rem;
+        font-weight: 600;
+        line-height: 1.25;
+        color: #2c2416;
+        margin-bottom: 1rem;
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero h1 em {
+        font-style: italic;
+        color: #7a5230;
+      }
+
+      .hero-sub {
+        font-size: 1rem;
+        color: #6b5840;
+        line-height: 1.75;
+        max-width: 340px;
+        margin: 0 auto 2.5rem;
+      }
+
+      .divider {
+        width: 48px;
+        height: 2px;
+        background: #c4a97d;
+        margin: 0 auto 2.5rem;
+        border-radius: 2px;
+      }
+
+      .stat-row {
+        display: flex;
+        justify-content: center;
+        gap: 2.5rem;
+      }
+
+      .stat {
+        text-align: center;
+      }
+
+      .stat-num {
+        font-family: "Lora", serif;
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #7a5230;
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #8b6f47;
+      }
+
+      .body {
+        width: 100%;
+        max-width: 480px;
+        padding: 2.5rem 2rem;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .section-label {
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #b09070;
+        margin-bottom: 1.5rem;
+      }
+
+      .steps {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 2.5rem;
+      }
+
+      .step {
+        display: flex;
+        gap: 1.2rem;
+        padding-bottom: 1.8rem;
+        position: relative;
+      }
+
+      .step:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 32px;
+        bottom: 0;
+        width: 1px;
+        background: #d4c4a8;
+      }
+
+      .step-dot {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #e8dfc8;
+        border: 1.5px solid #c4a97d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-family: "Lora", serif;
+        font-size: 13px;
+        color: #7a5230;
+        margin-top: 2px;
+      }
+
+      .step-title {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #2c2416;
+        margin-bottom: 4px;
+      }
+
+      .step-text {
+        font-size: 0.85rem;
+        color: #7a6650;
+        line-height: 1.6;
+      }
+
+      .quote-card {
+        background: #ede5d4;
+        border-left: 3px solid #c4a97d;
+        border-radius: 0 10px 10px 0;
+        padding: 1.2rem 1.4rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .quote-text {
+        font-family: "Lora", serif;
+        font-style: italic;
+        font-size: 0.95rem;
+        color: #4a3828;
+        line-height: 1.7;
+        margin-bottom: 8px;
+      }
+
+      .quote-attr {
+        font-size: 11px;
+        color: #8b6f47;
+        letter-spacing: 0.05em;
+      }
+
+      .footer-note {
+        font-size: 0.78rem;
+        color: #b09070;
+        text-align: center;
+        line-height: 1.6;
+        padding-top: 1.5rem;
+        border-top: 1px solid #d4c4a8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <div class="hero-eyebrow">Community Food Network</div>
+      <h1>
+        Good food shouldn't<br />go to <em>waste</em> while<br />families go
+        hungry.
+      </h1>
+      <p class="hero-sub">
+        Every evening, bakeries and stores have surplus food. We built a simple
+        system to get it to families who need it — before midnight.
+      </p>
+      <div class="divider"></div>
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat-num">0</span>
+          <span class="stat-label">Middlemen</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">1</span>
+          <span class="stat-label">QR scan</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">Dignity</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="section-label">How it works</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-dot">1</div>
+          <div>
+            <div class="step-title">Register via WhatsApp</div>
+            <div class="step-text">
+              Send us a message with your name and family size. We send back
+              your personal QR card immediately.
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot">2</div>
+          <div>
+            <div class="step-title">Visit a store before closing</div>
+            <div class="step-text">
+              Participating bakeries leave packed portions outside the door
+              every evening before they close.
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot">3</div>
+          <div>
+            <div class="step-title">Scan and collect — no one watching</div>
+            <div class="step-text">
+              Open your QR from WhatsApp, point your camera, collect your
+              packets. No queues, no questions.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-text">
+          "No one should have to ask a stranger for food. A scan is enough."
+        </div>
+        <div class="quote-attr">— The idea behind this system</div>
+      </div>
+
+      <div class="footer-note">
+        Built on the belief that technology should serve people quietly —<br />not
+        make them prove their need.
+      </div>
+    </div>
+  </body>
+</html>
