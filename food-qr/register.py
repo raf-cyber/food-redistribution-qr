@@ -24,7 +24,7 @@ s3 = boto3.client(
 
 citizens_table = dynamodb.Table('citizens')
 BUCKET = 'qr-images'
-HOST = 'http://localhost:5000'
+HOST = 'https://motherly-existential-loreta.ngrok-free.dev'
 
 
 def register_user(name, phone_number, dependents_under_18):

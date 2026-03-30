@@ -124,7 +124,7 @@ This is a working prototype — not a production system.
 
 ## Roadmap
 
-- [ ] WhatsApp bot via Twilio or Meta Cloud API
+- [done] WhatsApp bot via Twilio
 - [ ] Deploy to AWS (DynamoDB + S3 + EC2)
 - [ ] NGO admin dashboard
 - [ ] Pilot with one bakery in Lahore

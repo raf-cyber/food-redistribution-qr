@@ -7,6 +7,7 @@ from flask import Flask, request, jsonify, render_template
 from scan_logic import validate_scan, calculate_daily_units, get_todays_claims
 from register import register_user
 from flask import Flask, request, jsonify, render_template
+from whatsapp_bot import handle_message
 
 app = Flask(__name__)
 
@@ -36,6 +37,14 @@ HOST = 'http://localhost:5000'
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
+
+# --- /whatsapp ---
+@app.route('/whatsapp', methods=['POST'])
+def whatsapp():
+    incoming_msg = request.form.get('Body', '').strip()
+    from_number = request.form.get('From', '')
+    response_text = handle_message(incoming_msg, from_number)
+    return response_text, 200, {'Content-Type': 'text/xml'}
 
 # --- /register ---
 @app.route('/register', methods=['POST'])
@@ -175,6 +184,7 @@ def status():
         'units_remaining': max(0, daily_units - units_used),
         'last_claim': max([c['timestamp'] for c in todays_claims], default=None)
     }), 200
+    
 
 
 if __name__ == '__main__':
