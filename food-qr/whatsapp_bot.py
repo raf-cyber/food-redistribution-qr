@@ -63,7 +63,8 @@ def handle_message(incoming_msg, from_number):
             return str(response)
 
         # Send confirmation with QR link
-        qr_url = f"http://localhost:5000/scan?user_id={user_id}"
+        HOST = os.getenv('HOST', 'http://localhost:5000')
+        qr_url = f"{HOST}/scan?user_id={user_id}"
 
         msg.body(
             f"You are registered, {name}!\n\n"

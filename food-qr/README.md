@@ -1,13 +1,15 @@
 # Food Redistribution QR System — MVP
 
-Built for AllahWale Trust Foundation (or similar NGOs) to distribute
-surplus food fairly, autonomously, and without abuse.
+Built to distribute surplus bakery food to low-income families in Lahore —
+fairly, autonomously, and without abuse.
 
 ---
 
 ## Setup
 
-### 1. Start LocalStack
+### 1. Start Docker Desktop
+
+Open Docker Desktop and wait for it to fully load, then run:
 
 ```bash
 docker compose up -d
@@ -17,7 +19,7 @@ docker compose up -d
 
 ```bash
 terraform init
-terraform apply
+terraform apply -auto-approve
 ```
 
 ### 3. Activate virtual environment
@@ -30,22 +32,56 @@ source venv/bin/activate     # Mac/Linux
 ### 4. Seed demo data
 
 ```bash
-python seed_data.py
+py seed_data.py              # Windows
+python seed_data.py          # Mac/Linux
 ```
 
-### 5. Start the server
+### 5. Start the Flask server
 
 ```bash
-python app.py
+py app.py                    # Windows
+python app.py                # Mac/Linux
 ```
+
+### 6. Start ngrok (new terminal, venv active)
+
+```bash
+ngrok http 5000
+```
+
+Copy the ngrok URL (e.g. `https://xxxx.ngrok-free.app`) and set it in `.env`:
+
+```
+HOST=https://xxxx.ngrok-free.app
+```
+
+### 7. Connect Twilio WhatsApp Sandbox
+
+- Go to twilio.com → Messaging → Try it out → Send a WhatsApp message
+- Send `join <your-keyword>` from your phone to **+14155238886**
+- Set your ngrok webhook URL in Twilio console:
+  ```
+  https://xxxx.ngrok-free.app/whatsapp
+  ```
+
+---
+
+## WhatsApp Registration Flow
+
+Message **+14155238886** on WhatsApp to register a family:
+
+1. Send any message to start
+2. Enter your full name
+3. Enter number of dependents under 18
+4. Receive your personal QR code link
 
 ---
 
 ## Demo Walkthrough
 
-Open `http://localhost:5000` in browser — hand this to your pitch audience.
+Open `http://localhost:5000` in browser.
 
-Run `python seed_data.py` first and note the printed user IDs.
+Run `py seed_data.py` first and note the printed user IDs.
 
 | Scenario               | Who           | Expected                    |
 | ---------------------- | ------------- | --------------------------- |
@@ -59,8 +95,11 @@ Run `python seed_data.py` first and note the printed user IDs.
 Scan URL format:
 
 ```
-http://localhost:5000/scan?user_id=<user_id>
+https://your-ngrok-url/scan?user_id=<user_id>
 ```
+
+> **Note:** First visit via ngrok shows a one-time browser warning (free tier).
+> Click "Visit Site" to proceed — it only appears once per device.
 
 ---
 
@@ -73,6 +112,7 @@ http://localhost:5000/scan?user_id=<user_id>
 | POST   | `/deactivate`      | Deactivate a card                    |
 | POST   | `/reactivate`      | Reissue card with new QR             |
 | GET    | `/status?user_id=` | Check quota and claim status         |
+| POST   | `/whatsapp`        | Twilio WhatsApp webhook              |
 
 ---
 
@@ -95,12 +135,11 @@ daily_units = max(3, 3 + (dependents_under_18 × 1.5))
 - LocalStack (DynamoDB + S3) via Docker
 - Terraform for provisioning
 - Flask backend
-- No real AWS account needed
-
-```
+- Twilio WhatsApp Sandbox for registration
+- ngrok for public URL tunneling
+- No real AWS account needed for local dev
 
 ---
-```
 
 ## Current Status
 
@@ -108,23 +147,26 @@ This is a working prototype — not a production system.
 
 **Built and working:**
 
-- User registration with QR generation
+- User registration via WhatsApp bot (Twilio sandbox)
+- QR code generation and delivery via WhatsApp
 - QR scan flow with full screen approved/denied result
-- 24 hour cooldown and per-family quota logic
-- Card deactivation and reactivation
+- 24-hour cooldown and per-family quota logic
+- Card deactivation and reactivation with new QR
 - Seed data for demo scenarios
 - LocalStack infrastructure via Terraform
 
 **Not built yet:**
 
-- Real WhatsApp API integration (simulated via direct URL)
+- Real WhatsApp API via Meta Cloud API (currently Twilio sandbox)
 - Production deployment on AWS
-- Admin dashboard for NGO staff
+- NGO admin dashboard
 - Mechanized chute hardware integration
+
+---
 
 ## Roadmap
 
-- [done] WhatsApp bot via Twilio
+- [x] WhatsApp bot via Twilio
 - [ ] Deploy to AWS (DynamoDB + S3 + EC2)
 - [ ] NGO admin dashboard
 - [ ] Pilot with one bakery in Lahore

@@ -56,7 +56,7 @@ def validate_scan(user_id, store_id='store_001'):
     # Check 24hr cooldown
     last_claim = get_last_claim(user_id)
     if last_claim:
-        last_time = datetime.fromisoformat(last_claim['timestamp'])
+        last_time = datetime.fromisoformat(last_claim['timestamp'].replace('Z', '+00:00')).replace(tzinfo=timezone.utc)
         now = datetime.now(timezone.utc)
         diff_hours = (now - last_time).total_seconds() / 3600
         if diff_hours < 24:
