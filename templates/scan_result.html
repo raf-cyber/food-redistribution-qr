@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Collection</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', sans-serif;
+        background: {{ bg_color }};
+        color: white;
+        text-align: center;
+        padding: 2rem;
+      }
+
+      .icon-wrap {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 2rem;
+        animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      }
+
+      svg.checkmark, svg.crossmark {
+        width: 80px;
+        height: 80px;
+      }
+
+      /* Tick animation */
+      .checkmark-path {
+        stroke: white;
+        stroke-width: 6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: none;
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+        animation: draw 0.5s ease 0.3s forwards;
+      }
+
+      /* Cross animation */
+      .crossmark-path {
+        stroke: white;
+        stroke-width: 6;
+        stroke-linecap: round;
+        fill: none;
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+        animation: draw 0.4s ease 0.3s forwards;
+      }
+
+      .crossmark-path:nth-child(2) {
+        animation-delay: 0.5s;
+      }
+
+      @keyframes draw {
+        to { stroke-dashoffset: 0; }
+      }
+
+      @keyframes pop {
+        from { transform: scale(0); opacity: 0; }
+        to   { transform: scale(1); opacity: 1; }
+      }
+
+      h1 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        animation: fadeUp 0.4s ease 0.5s both;
+      }
+
+      .subtitle {
+        font-size: 1.1rem;
+        opacity: 0.85;
+        margin-bottom: 2rem;
+        animation: fadeUp 0.4s ease 0.6s both;
+      }
+
+      .info-box {
+        background: rgba(255,255,255,0.15);
+        border-radius: 16px;
+        padding: 1.2rem 2rem;
+        font-size: 1rem;
+        line-height: 1.8;
+        animation: fadeUp 0.4s ease 0.7s both;
+        max-width: 320px;
+        width: 100%;
+      }
+
+      .info-box span {
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      .logo {
+        position: absolute;
+        top: 1.5rem;
+        font-size: 0.85rem;
+        opacity: 0.6;
+        letter-spacing: 0.05em;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="logo">AllahWale Trust Foundation</div> -->
+
+    <div class="icon-wrap">
+      {% if approved %}
+      <svg class="checkmark" viewBox="0 0 60 60">
+        <path class="checkmark-path" d="M12 30 L25 43 L48 17" />
+      </svg>
+      {% else %}
+      <svg class="crossmark" viewBox="0 0 60 60">
+        <path class="crossmark-path" d="M15 15 L45 45" />
+        <path class="crossmark-path" d="M45 15 L15 45" />
+      </svg>
+      {% endif %}
+    </div>
+
+    <h1>{{ title }}</h1>
+    <p class="subtitle">{{ subtitle }}</p>
+
+    <div class="info-box">{{ info | safe }}</div>
+  </body>
+</html>
